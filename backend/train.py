@@ -10,7 +10,7 @@ import joblib
 
 from engine import extract_features, generate_ela
 
-DATASET_DIR = "synthetic_dataset"
+DATASET_DIR = "user_dataset"
 AUTHENTIC_DIR = os.path.join(DATASET_DIR, "authentic")
 TAMPERED_DIR = os.path.join(DATASET_DIR, "tampered")
 MODEL_DIR = "models"
@@ -79,7 +79,7 @@ def load_data():
 
 def train_model():
     setup_dirs()
-    generate_synthetic_data(100)
+    # generate_synthetic_data(100)
     
     X, y = load_data()
     
@@ -90,7 +90,7 @@ def train_model():
     X_test_scaled = scaler.transform(X_test)
     
     print("Training RandomForestClassifier...")
-    clf = RandomForestClassifier(n_estimators=100, random_state=42)
+    clf = RandomForestClassifier(n_estimators=100, random_state=42, class_weight='balanced')
     clf.fit(X_train_scaled, y_train)
     
     y_pred = clf.predict(X_test_scaled)

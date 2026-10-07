@@ -4,6 +4,7 @@ import { UploadArea } from './components/UploadArea';
 import { ProcessingScreen } from './components/ProcessingScreen';
 import { ResultWorkspace } from './components/ResultWorkspace';
 import { IntroSequence } from './components/intro/IntroSequence';
+import { HelpPopup } from './components/HelpPopup';
 import { analyzeImage } from './api';
 import type { AnalysisStatus, AnalysisResult } from './api';
 
@@ -55,6 +56,7 @@ function App() {
 
   return (
     <>
+      <HelpPopup />
       <AnimatePresence>
         {showIntro && <IntroSequence onComplete={() => setShowIntro(false)} />}
       </AnimatePresence>
