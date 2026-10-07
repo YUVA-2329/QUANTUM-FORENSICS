@@ -1,0 +1,17 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+node_modules
+dist
+dist-ssr
+
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+
+# Python
+venv/
+__pycache__/
+*.pyc
