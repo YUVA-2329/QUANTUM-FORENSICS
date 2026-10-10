@@ -30,7 +30,7 @@ export const ResultWorkspace: React.FC<ResultWorkspaceProps> = ({ file, result, 
   const [imageUrl] = useState(() => URL.createObjectURL(file));
   
   const isTampered = result.verdict === 'TAMPERED';
-  const themeColor = isTampered ? 'var(--color-status-tampered)' : 'var(--color-status-authentic)';
+  const themeColor = isTampered ? '#ef4444' : '#3b82f6';
 
   const container = {
     hidden: { opacity: 0 },
@@ -55,13 +55,13 @@ export const ResultWorkspace: React.FC<ResultWorkspaceProps> = ({ file, result, 
       {/* Header Verdict */}
       <motion.div variants={item} className="flex flex-col md:flex-row items-start md:items-end justify-between mb-2">
         <div>
-          <h2 className="text-sm text-[var(--color-text-secondary)] font-medium mb-1 tracking-tight">Analysis Result</h2>
+          <h2 className="text-sm text-slate-400 font-medium mb-1 tracking-tight">Analysis Result</h2>
           <div className="flex items-center space-x-3">
             <motion.span 
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-              className="text-4xl md:text-5xl font-medium tracking-tight drop-shadow-sm"
+              className="text-4xl md:text-5xl font-medium tracking-tight drop-shadow-2xl"
               style={{ color: themeColor }}
             >
               {isTampered ? '⚠️ Potentially Tampered' : '✓ Authentic'}
@@ -70,16 +70,16 @@ export const ResultWorkspace: React.FC<ResultWorkspaceProps> = ({ file, result, 
         </div>
 
         <div className="mt-6 md:mt-0 flex flex-col items-start md:items-end">
-          <div className="text-4xl md:text-5xl font-medium text-[var(--color-text-primary)] tracking-tight">
+          <div className="text-4xl md:text-5xl font-medium text-white tracking-tight">
             <NumberCounter value={result.confidence * 100} isPercentage={true} />
           </div>
-          <div className="text-sm text-[var(--color-text-secondary)] font-medium mt-1 uppercase tracking-widest">
+          <div className="text-sm text-slate-400 font-medium mt-1 uppercase tracking-widest">
             confidence
           </div>
         </div>
       </motion.div>
       
-      <motion.p variants={item} className="text-[var(--color-text-muted)] text-sm max-w-2xl mb-4 leading-relaxed">
+      <motion.p variants={item} className="text-[#94a3b8] text-sm max-w-2xl mb-4 leading-relaxed">
         {isTampered 
           ? 'The image contains compression patterns that differ significantly across regions, indicating potential localized manipulation.' 
           : 'The image displays consistent compression patterns across all regions, typical of an unmodified file.'}
@@ -138,8 +138,8 @@ export const ResultWorkspace: React.FC<ResultWorkspaceProps> = ({ file, result, 
         <div className="flex flex-col space-y-6">
           
           {/* Metrics Grid */}
-          <motion.div variants={item} className="panel p-6 shadow-sm border border-[var(--color-surface-border)] hover:border-slate-300 subtle-transition">
-            <h3 className="text-sm font-medium text-[var(--color-text-primary)] mb-6 tracking-tight">Model Performance</h3>
+          <motion.div variants={item} className="panel p-6 shadow-2xl border border-white/10 hover:border-white/20 subtle-transition">
+            <h3 className="text-sm font-medium text-white mb-6 tracking-tight">Model Performance</h3>
             
             <div className="space-y-4">
               {[
@@ -150,17 +150,17 @@ export const ResultWorkspace: React.FC<ResultWorkspaceProps> = ({ file, result, 
               ].map((metric, i) => (
                 <div key={metric.label}>
                   <div className="flex justify-between text-xs mb-2">
-                    <span className="text-[var(--color-text-secondary)] font-medium">{metric.label}</span>
-                    <span className="text-[var(--color-text-primary)] font-mono font-medium">
+                    <span className="text-slate-400 font-medium">{metric.label}</span>
+                    <span className="text-white font-mono font-medium">
                       <NumberCounter value={metric.value * 100} isPercentage={true} duration={1.5 + (i * 0.1)} />
                     </span>
                   </div>
-                  <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${metric.value * 100}%` }}
                       transition={{ duration: 1.2, delay: 0.3 + (i * 0.1), ease: "easeOut" }}
-                      className="h-full bg-slate-800" 
+                      className="h-full bg-white" 
                     />
                   </div>
                 </div>
@@ -169,24 +169,24 @@ export const ResultWorkspace: React.FC<ResultWorkspaceProps> = ({ file, result, 
           </motion.div>
 
           {/* ELA Stats */}
-          <motion.div variants={item} className="panel p-6 shadow-sm border border-[var(--color-surface-border)] hover:border-slate-300 subtle-transition">
-            <h3 className="text-sm font-medium text-[var(--color-text-primary)] mb-6 tracking-tight">Error Level Statistics</h3>
+          <motion.div variants={item} className="panel p-6 shadow-2xl border border-white/10 hover:border-white/20 subtle-transition">
+            <h3 className="text-sm font-medium text-white mb-6 tracking-tight">Error Level Statistics</h3>
             <div className="grid grid-cols-2 gap-y-6 gap-x-4">
               <div>
-                <div className="text-xs text-[var(--color-text-secondary)] mb-1 font-medium">Mean Error</div>
-                <div className="text-sm font-mono text-[var(--color-text-primary)]"><NumberCounter value={result.ela.mean_error} duration={1.2} /></div>
+                <div className="text-xs text-slate-400 mb-1 font-medium">Mean Error</div>
+                <div className="text-sm font-mono text-white"><NumberCounter value={result.ela.mean_error} duration={1.2} /></div>
               </div>
               <div>
-                <div className="text-xs text-[var(--color-text-secondary)] mb-1 font-medium">Std Dev</div>
-                <div className="text-sm font-mono text-[var(--color-text-primary)]"><NumberCounter value={result.ela.std_error} duration={1.3} /></div>
+                <div className="text-xs text-slate-400 mb-1 font-medium">Std Dev</div>
+                <div className="text-sm font-mono text-white"><NumberCounter value={result.ela.std_error} duration={1.3} /></div>
               </div>
               <div>
-                <div className="text-xs text-[var(--color-text-secondary)] mb-1 font-medium">Max Error</div>
-                <div className="text-sm font-mono text-[var(--color-text-primary)]"><NumberCounter value={result.ela.max_error} duration={1.4} /></div>
+                <div className="text-xs text-slate-400 mb-1 font-medium">Max Error</div>
+                <div className="text-sm font-mono text-white"><NumberCounter value={result.ela.max_error} duration={1.4} /></div>
               </div>
               <div>
-                <div className="text-xs text-[var(--color-text-secondary)] mb-1 font-medium">Anomaly Ratio</div>
-                <div className="text-sm font-mono" style={{ color: result.ela.high_error_ratio > 5 ? 'var(--color-status-tampered)' : 'var(--color-text-primary)' }}>
+                <div className="text-xs text-slate-400 mb-1 font-medium">Anomaly Ratio</div>
+                <div className="text-sm font-mono" style={{ color: result.ela.high_error_ratio > 5 ? '#ef4444' : '#ffffff' }}>
                   <NumberCounter value={result.ela.high_error_ratio} isPercentage={true} duration={1.5} />
                 </div>
               </div>
@@ -196,31 +196,31 @@ export const ResultWorkspace: React.FC<ResultWorkspaceProps> = ({ file, result, 
             <motion.div 
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-              className="mt-6 rounded-lg overflow-hidden border border-slate-200 relative aspect-video bg-[#0a0a0c] shadow-inner group"
+              className="mt-6 rounded-lg overflow-hidden border border-white/10 relative aspect-video bg-[#0a0a0c] shadow-inner group"
             >
                 <img src={result.ela.image_url} alt="ELA Map" className="absolute inset-0 w-full h-full object-contain opacity-90 group-hover:opacity-100 subtle-transition" />
             </motion.div>
           </motion.div>
 
           {/* Metadata */}
-          <motion.div variants={item} className="panel p-6 shadow-sm border border-[var(--color-surface-border)] hover:border-slate-300 subtle-transition">
-            <h3 className="text-sm font-medium text-[var(--color-text-primary)] mb-4 tracking-tight">Metadata</h3>
+          <motion.div variants={item} className="panel p-6 shadow-2xl border border-white/10 hover:border-white/20 subtle-transition">
+            <h3 className="text-sm font-medium text-white mb-4 tracking-tight">Metadata</h3>
             <div className="space-y-3 text-xs font-mono">
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-[var(--color-text-secondary)]">Resolution</span>
-                <span className="text-[var(--color-text-primary)] font-medium">{result.image.width}x{result.image.height}</span>
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-slate-400">Resolution</span>
+                <span className="text-white font-medium">{result.image.width}x{result.image.height}</span>
               </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-[var(--color-text-secondary)]">Format</span>
-                <span className="text-[var(--color-text-primary)] font-medium">{result.image.format}</span>
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-slate-400">Format</span>
+                <span className="text-white font-medium">{result.image.format}</span>
               </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-[var(--color-text-secondary)]">Size</span>
-                <span className="text-[var(--color-text-primary)] font-medium">{(result.image.size_bytes / 1024).toFixed(1)} KB</span>
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-slate-400">Size</span>
+                <span className="text-white font-medium">{(result.image.size_bytes / 1024).toFixed(1)} KB</span>
               </div>
               <div className="flex justify-between pt-1">
-                <span className="text-[var(--color-text-secondary)]">Model Algorithm</span>
-                <span className="text-[var(--color-text-primary)] font-medium truncate max-w-[150px]" title={result.model.algorithm}>{result.model.algorithm}</span>
+                <span className="text-slate-400">Model Algorithm</span>
+                <span className="text-white font-medium truncate max-w-[150px]" title={result.model.algorithm}>{result.model.algorithm}</span>
               </div>
             </div>
           </motion.div>

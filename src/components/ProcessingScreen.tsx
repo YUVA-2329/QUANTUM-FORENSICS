@@ -36,18 +36,17 @@ export const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ file }) => {
   }, []);
 
   return (
-    <div className="w-full p-8 md:p-12 flex flex-col items-center">
+    <div className="w-full h-full flex flex-col items-center justify-center p-8 md:p-12">
       {/* Uploaded Image Preview */}
       {imageUrl && (
         <motion.div 
           initial={{ opacity: 0, scale: 0.98, y: 8 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
-          whileHover={{ scale: 1.01 }}
-          className="relative rounded-lg overflow-hidden border border-[var(--color-surface-border)] shadow-sm mb-12 max-w-[240px] w-full aspect-square bg-slate-100 flex items-center justify-center"
+          className="relative rounded-lg overflow-hidden border border-white/10 shadow-2xl mb-12 max-w-[240px] w-full aspect-square bg-[#0a0a0a] flex items-center justify-center"
         >
-          <img src={imageUrl} alt="Target" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.05)] pointer-events-none rounded-lg" />
+          <img src={imageUrl} alt="Target" className="w-full h-full object-cover opacity-80" />
+          <div className="absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] pointer-events-none rounded-lg" />
         </motion.div>
       )}
 
@@ -56,13 +55,13 @@ export const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ file }) => {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, ease: "linear", repeat: Infinity }}
-          className="w-6 h-6 border-2 border-slate-200 border-t-slate-800 rounded-full"
+          className="w-8 h-8 border-2 border-white/20 border-t-white rounded-full"
         />
         
         <div className="text-center">
-          <h2 className="text-lg font-medium text-[var(--color-text-primary)] mb-2 tracking-tight">ANALYZING IMAGE</h2>
+          <h2 className="text-sm font-semibold text-white tracking-[0.2em] mb-2 uppercase">Analyzing Evidence</h2>
           
-          <div className="h-6 relative overflow-hidden flex justify-center">
+          <div className="h-6 relative overflow-hidden flex justify-center w-full min-w-[300px]">
             <AnimatePresence mode="popLayout">
               <motion.div
                 key={labelIndex}
@@ -70,7 +69,7 @@ export const ProcessingScreen: React.FC<ProcessingScreenProps> = ({ file }) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="text-sm text-[var(--color-text-secondary)] absolute"
+                className="text-sm text-slate-400 absolute w-full text-center tracking-wide"
               >
                 {contextualLabels[labelIndex]}
               </motion.div>

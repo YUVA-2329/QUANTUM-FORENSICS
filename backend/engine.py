@@ -35,9 +35,10 @@ def load_models():
 load_models()
 
 def generate_ela(original_img, quality=90):
-    temp_filename = "temp_ela.jpg"
-    original_img.save(temp_filename, "JPEG", quality=quality)
-    recompressed = Image.open(temp_filename)
+    buffered = io.BytesIO()
+    original_img.save(buffered, "JPEG", quality=quality)
+    buffered.seek(0)
+    recompressed = Image.open(buffered)
     difference = ImageChops.difference(original_img, recompressed)
     
     extrema = difference.getextrema()
@@ -47,7 +48,6 @@ def generate_ela(original_img, quality=90):
     
     scale = 255.0 / max_diff
     ela_image = ImageEnhance.Brightness(difference).enhance(scale)
-    os.remove(temp_filename)
     
     return ela_image, difference
 
